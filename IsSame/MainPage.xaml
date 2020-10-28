@@ -1,0 +1,98 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:IsSame"
+             x:Class="IsSame.MainPage"
+             Padding="20"
+             BackgroundColor="AliceBlue">
+    <ContentPage.Padding>
+        <OnPlatform x:TypeArguments="Thickness"
+                    iOS="0,50,0,0"
+                    Android="0,0,0,0"/>
+    </ContentPage.Padding>
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <local:BarcodeViewModel x:Key="Barcode"/>
+            <local:VideoSourceConverter x:Key="VideoSource"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <StackLayout>
+        <Frame BackgroundColor="#2196F3" Padding="20" CornerRadius="0">
+            <Label Text="Safe Combine ver 0.7" HorizontalTextAlignment="Center" TextColor="White" FontSize="30" />
+        </Frame>
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="10"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="10"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="10"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="300"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Source 바인딩, 1차로 해당 음원을 찾은 다음 디바이스에 맞게 컨버젼 실시-->
+            <!-- 데이터 트리거로 First와 Second가 Null로 초기화되었을때는 Source 에 값을 넣지 말아서 Play되지 않도록 기능 추가하려고 -->
+            <!-- 멀티 트리거등을 시도하다가 실패하고 ViewModel 에서 Null 값 비교 루틴으로 해결함.  -->
+            <MediaElement
+                Grid.Row="8"
+                x:Name="MediaPlayer"
+                Source="{Binding Source={StaticResource Barcode}, Path=ResultSound, Converter={StaticResource VideoSource}}"
+                AutoPlay="False"
+                HeightRequest="1"
+                WidthRequest="1"
+                HorizontalOptions="Start">
+             </MediaElement>
+            <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+                    Text="Tick! Tick! Tick!" HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Center"
+                    FontSize="Body"/>
+            <Label Grid.Row="2" Grid.Column="0" Text="1차 스캔 값"/>
+            <Label Grid.Row="2" Grid.Column="1" Text="{Binding Source={StaticResource Barcode},
+                Path=First}" VerticalTextAlignment="Center"/>
+            <Label Grid.Row="3" Grid.Column="0" Text="2차 스캔 값"/>
+            <Label Grid.Row="3" Grid.Column="1" Text="{Binding Source={StaticResource Barcode},
+                Path=Second}" VerticalTextAlignment="Center"/>
+        
+            <Label Grid.Row="5" Grid.Column="0" Text="원물" VerticalTextAlignment="Center"/>
+            <Entry x:Name="EntryFirst"
+                   TabIndex="1"
+                   Grid.Row="5"
+                   Grid.Column="1"
+                   Placeholder="원물스캔"
+                   Text="{Binding Source={StaticResource Barcode}, Path=FirstScan}">
+                <!-- 입력후 엔터키로 커서 포인터 아래로 이동, 궂이 아래와 같이 어렵게 하지 않아도 된다.MainPage.xamal.cs 참조 -->
+                <!--<Entry.Behaviors>
+                        <behaviors:SetFocusOnEntryCompletedBehavior TargetElement="{x:Reference EntrySecond}" />
+                </Entry.Behaviors>-->
+            </Entry>
+
+            <Label Grid.Row="6" Grid.Column="0" Text="대상물" VerticalTextAlignment="Center"/>
+            <Entry x:Name="EntrySecond"
+                   TabIndex="2"
+                   Grid.Row="6"
+                   Grid.Column="1"
+                   Placeholder="대상품스캔"
+                   Text="{Binding Source={StaticResource Barcode}, Path=SecondScan}">
+            </Entry>
+
+            <!--<Label Grid.Row="7" Grid.Column="0" Text="초기화" VerticalTextAlignment="Center"/>
+            <Entry x:Name="EntryInitialize"
+                   TabIndex="3"
+                   Grid.Row="7"
+                   Grid.Column="1"
+                   Placeholder="엔터키">
+            </Entry>-->
+            <Button x:Name="btnInitialize" Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="2" Text="초기화" Clicked="btnInitialize_Clicked"/>
+        </Grid>
+    </StackLayout>
+</ContentPage>
