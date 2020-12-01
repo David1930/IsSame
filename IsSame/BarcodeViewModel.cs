@@ -70,7 +70,19 @@ namespace IsSame
 
         public void CalcSound()
         {
-            if (firstScan == secondScan)
+            if (firstScan.Length == 11 & secondScan.Length == 11)
+            {
+                if (firstScan.Substring(0, 9) == secondScan.Substring(0, 9))
+                {
+                    ResultSound = "YEAH.mp3";
+                }
+                else
+                {
+                    ResultSound = "NO.mp3";
+                }
+            }
+
+            else if (firstScan == secondScan)
             {
                 //ResultSound = "ms-appx:///YEAH.mp3";
                 // 스캔이 모두 된후에 Entry에 남아 있는 기존 값을 초기화 시켰을때 둘다 Null 이 되어 같은 코드로 오인하여 Yeah 라고 못하게 한다.
