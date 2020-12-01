@@ -70,7 +70,7 @@ namespace IsSame
 
         public void CalcSound()
         {
-            if (firstScan.Length == 11 & secondScan.Length == 11)
+            if (firstScan.Length == 11 & secondScan.Length == 11) // RO 넘버 11자리 감안
             {
                 if (firstScan.Substring(0, 9) == secondScan.Substring(0, 9))
                 {
