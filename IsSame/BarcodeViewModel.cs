@@ -74,11 +74,13 @@ namespace IsSame
             {
                 if (firstScan.Substring(0, 9) == secondScan.Substring(0, 9))
                 {
-                    ResultSound = "YEAH.mp3";
+                    //ResultSound = "YEAH.mp3";
+                    ResultSound = "PASS3.mp3";
                 }
                 else
                 {
-                    ResultSound = "NO.mp3";
+                    //ResultSound = "NO.mp3";
+                    ResultSound = "ERROR1.mp3";
                 }
             }
 
@@ -92,7 +94,8 @@ namespace IsSame
                     ResultSound = "";
                 }
                 else
-                    ResultSound = "YEAH.mp3";
+                    //ResultSound = "YEAH.mp3";
+                    ResultSound = "PASS3.mp3";
             }
             //else if (first.Substring(0, 9) == second.Substring(0, 9)) //이 루틴 때문에 테스트하면서 값을 넣으면 자꾸 다운되는 현상 때문에 엄청 고생했다.
             //{                                                         // 자리수 9개를 넣지 않고 자꾸 실행하니 없는 데이터를 처리하려고 하면서 죽어버림.
@@ -101,7 +104,8 @@ namespace IsSame
             else
             {
                 //ResultSound = "ms-appx:///YEAH.mp3";
-                ResultSound = "NO.mp3";
+                //ResultSound = "NO.mp3";
+                ResultSound = "ERROR1.mp3";
             }
         }
 
